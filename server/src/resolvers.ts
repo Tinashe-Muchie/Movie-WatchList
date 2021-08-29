@@ -28,59 +28,59 @@ const resolvers = {
 
     Movies: {
         /*returns an object of movie details*/
-        details: ({id}:{id: number}, __: unknown, {dataSources}: {dataSources: any}) => {
+        details: async ({id}:{id: number}, __: unknown, {dataSources}: {dataSources: any}) => {
             return dataSources.movieAPI.getMovieDetails(id);
         },
         /*returns an array of people/actors involved in a movie/Tv Show*/
-        credits: ({id}:{id: number}, __: unknown, {dataSources}: {dataSources: any}) => {
+        credits: async ({id}:{id: number}, __: unknown, {dataSources}: {dataSources: any}) => {
             return dataSources.movieAPI.getMovieCasts(id);
         },
         /*returns an array of reviews for a selected movie*/
-        reviews: ({id}:{id: number}, __: unknown, {dataSources}: {dataSources: any}) => {
+        reviews: async ({id}:{id: number}, __: unknown, {dataSources}: {dataSources: any}) => {
             return dataSources.movieAPI.getMovieReviews(id);
         },
         /*returns an array of trailer videos for a selected movie*/
-        videos: ({id}:{id: number}, __: unknown, {dataSources}: {dataSources: any}) => {
+        videos: async ({id}:{id: number}, __: unknown, {dataSources}: {dataSources: any}) => {
             return dataSources.movieAPI.getMovieVideos(id);
         },
         /*returns an array of popular movies on tmdb*/
-        popular: (_: unknown, __: unknown, {dataSources}: {dataSources: any}) => {
+        popular: async (_: unknown, __: unknown, {dataSources}: {dataSources: any}) => {
             return dataSources.movieAPI.getPopularMovies();
         },
         /*returns an array of top rated movies on tmdb*/
-        topRated: (_: unknown, __: unknown, {dataSources}: {dataSources: any}) => {
+        topRated: async (_: unknown, __: unknown, {dataSources}: {dataSources: any}) => {
             return dataSources.movieAPI.getTopRatedMovies();
         },
         /*returns an array of upcoming movies*/
-        upcoming: (_: unknown, __: unknown, {dataSources}: {dataSources: any}) => {
+        upcoming: async (_: unknown, __: unknown, {dataSources}: {dataSources: any}) => {
             return dataSources.movieAPI.getUpcomingMovies();
         }
     },
 
     TvShows: {
         /*returns an object of Tv Shows' details*/
-        details: ({id}:{id: number}, __: unknown, {dataSources}: {dataSources: any}) => {
+        details: async ({id}:{id: number}, __: unknown, {dataSources}: {dataSources: any}) => {
             return dataSources.movieAPI.getTvShowsDetails(id);
         },
         /*returns an array of people involved in a tv show*/
-        credits: ({id}:{id: number}, __: unknown, {dataSources}: {dataSources: any}) => {
+        credits: async ({id}:{id: number}, __: unknown, {dataSources}: {dataSources: any}) => {
             return dataSources.movieAPI.getTvShowCasts(id);
         },
         /*returns an array of reviews posted by people on the internet about a selected 
         tv show*/
-        reviews: ({id}:{id: number}, __: unknown, {dataSources}: {dataSources: any}) => {
+        reviews: async ({id}:{id: number}, __: unknown, {dataSources}: {dataSources: any}) => {
             return dataSources.movieAPI.getTvShowReviews(id);
         },
         /*returns an array of trailer videos for tv shows*/
-        videos: ({id}:{id: number}, __: unknown, {dataSources}: {dataSources: any}) => {
+        videos: async ({id}:{id: number}, __: unknown, {dataSources}: {dataSources: any}) => {
             return dataSources.movieAPI.getTvShowVideos(id);
         },
         /*returns an array of popular tv shows on tmdb*/
-        popular: (_: unknown, __: unknown, {dataSources}: {dataSources: any}) => {
+        popular: async (_: unknown, __: unknown, {dataSources}: {dataSources: any}) => {
             return dataSources.movieAPI.getPopularTvShows();
         },
         /*returns an array of top rated tv shows on tmdb*/
-        topRated: (_: unknown, __: unknown, {dataSources}: {dataSources: any}) => {
+        topRated: async (_: unknown, __: unknown, {dataSources}: {dataSources: any}) => {
             return dataSources.movieAPI.getTopRatedTvShows();
         }
     } 
@@ -106,7 +106,6 @@ interface MovieIF {
     vote_count: number;
 }
     
-
 interface TvShowIF {
     backdrop_path: string;
     first_air_date: string;
