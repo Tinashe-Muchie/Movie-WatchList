@@ -22,7 +22,7 @@ const resolvers = {
                     __typename: 'TvShows',
                     ...item
                 }
-            })
+            });
         }
     },
 
