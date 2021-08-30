@@ -5,6 +5,9 @@ const typeDefs = gql`
     type Query {
         getMovies: [Movies!]!
         getTvShows: [TvShows!]!
+        getTopRatedMovies: [Movies!]!
+        getUpcomingMovies: [Movies!]!
+        getTopRatedTvShows: [TvShows!]!
         search(name: String!): [Search!]
     }
     "The Search returns either Movies or TvShows"
@@ -21,9 +24,6 @@ const typeDefs = gql`
         credits: [Cast!]
         reviews: [Reviews]
         videos: [Videos]
-        popular: [MovieDetails]
-        topRated: [MovieDetails]
-        upcoming: [MovieDetails]
     }
 
     "The Tv Shows type represents movies retrieved from discover Tv Shows"
@@ -37,8 +37,6 @@ const typeDefs = gql`
         credits: [Cast!]
         reviews: [Reviews]
         videos: [Videos]
-        popular: [TvShowDetails]
-        topRated: [TvShowDetails]
     }
 
     type MovieDetails {
@@ -59,7 +57,6 @@ const typeDefs = gql`
         id: Int!
         last_air_date: String
         name: String
-        next_episode_to_air: String
         number_of_episodes: Int
         number_of_seasons: Int
         poster_path: String    

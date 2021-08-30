@@ -9,6 +9,18 @@ const resolvers = {
         getTvShows: async (_: unknown, __: unknown, {dataSources}: {dataSources: any}) => {
             return dataSources.movieAPI.getTvShows();
         },
+        /*returns an array of top rated movies on tmdb*/
+        getTopRatedMovies: async (_: unknown, __: unknown, {dataSources}: {dataSources: any}) => {
+            return dataSources.movieAPI.getTopRatedMovies();
+        },
+        /*returns an array of upcoming movies*/
+        getUpcomingMovies: async (_: unknown, __: unknown, {dataSources}: {dataSources: any}) => {
+            return dataSources.movieAPI.getUpcomingMovies();
+        },
+        /*returns an array of top rated tv shows on tmdb*/
+        getTopRatedTvShows: async (_: unknown, __: unknown, {dataSources}: {dataSources: any}) => {
+            return dataSources.movieAPI.getTopRatedTvShows();
+        },
         /*returns an array of either TvShows or movies depending on the client's input*/
         search: async ( _: unknown, {name}:{name: string}, {dataSources}: {dataSources: any}) => {
             const data: MovieIF[] | TvShowIF[] = await dataSources.movieAPI.Search(name);
@@ -42,18 +54,6 @@ const resolvers = {
         /*returns an array of trailer videos for a selected movie*/
         videos: async ({id}:{id: number}, __: unknown, {dataSources}: {dataSources: any}) => {
             return dataSources.movieAPI.getMovieVideos(id);
-        },
-        /*returns an array of popular movies on tmdb*/
-        popular: async (_: unknown, __: unknown, {dataSources}: {dataSources: any}) => {
-            return dataSources.movieAPI.getPopularMovies();
-        },
-        /*returns an array of top rated movies on tmdb*/
-        topRated: async (_: unknown, __: unknown, {dataSources}: {dataSources: any}) => {
-            return dataSources.movieAPI.getTopRatedMovies();
-        },
-        /*returns an array of upcoming movies*/
-        upcoming: async (_: unknown, __: unknown, {dataSources}: {dataSources: any}) => {
-            return dataSources.movieAPI.getUpcomingMovies();
         }
     },
 
@@ -74,14 +74,6 @@ const resolvers = {
         /*returns an array of trailer videos for tv shows*/
         videos: async ({id}:{id: number}, __: unknown, {dataSources}: {dataSources: any}) => {
             return dataSources.movieAPI.getTvShowVideos(id);
-        },
-        /*returns an array of popular tv shows on tmdb*/
-        popular: async (_: unknown, __: unknown, {dataSources}: {dataSources: any}) => {
-            return dataSources.movieAPI.getPopularTvShows();
-        },
-        /*returns an array of top rated tv shows on tmdb*/
-        topRated: async (_: unknown, __: unknown, {dataSources}: {dataSources: any}) => {
-            return dataSources.movieAPI.getTopRatedTvShows();
         }
     } 
 }
