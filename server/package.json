@@ -6,7 +6,8 @@
   "scripts": {
     "start": "ts-node ./src/index.ts",
     "dev": "ts-node-dev --respawn ./src/index.ts",
-    "generate": "graphql-codegen --config codegen.yml"
+    "generate": "graphql-codegen --config codegen.yml",
+    "bundle": "cpx src/**/* functions/bundle"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +27,8 @@
     "@types/dotenv": "^8.2.0",
     "apollo-datasource-rest": "^3.2.0",
     "apollo-server": "^3.3.0",
+    "apollo-server-lambda": "^3.3.0",
+    "cpx": "^1.5.0",
     "dotenv": "^10.0.0",
     "graphql": "^15.5.1"
   }
