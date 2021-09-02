@@ -1,18 +1,7 @@
 import 'dotenv/config';
-import { ApolloServer } from 'apollo-server';
-import typeDefs from './schema';
-import resolvers from './resolvers';
-import MovieAPI from './datasources/movie-api';
+import { createLocalServer } from './server';
 
-const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    dataSources: () => {
-        return { 
-            movieAPI : new MovieAPI()
-        }
-    }
-});
+const server = createLocalServer();
 
 server.listen().then(() => {
     console.log('server is running on port 4000');
