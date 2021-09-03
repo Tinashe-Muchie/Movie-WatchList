@@ -2,12 +2,12 @@ const resolvers = {
     Query: {
         /*returns an array of movies from the discover endpoint that will be used to 
         populate the movie section in the frontend */
-        getMovies: async (_: unknown, __: unknown, {dataSources}: {dataSources: any}) => {
-            return dataSources.movieAPI.getMovies();
+        getMovies: async (_: unknown, {page}: {page: number}, {dataSources}: {dataSources: any}) => {
+            return dataSources.movieAPI.getMovies(page);
         },
         /*returns an array of Tv Shows from the discover endpoint*/
-        getTvShows: async (_: unknown, __: unknown, {dataSources}: {dataSources: any}) => {
-            return dataSources.movieAPI.getTvShows();
+        getTvShows: async (_: unknown, {page}:{page: number}, {dataSources}: {dataSources: any}) => {
+            return dataSources.movieAPI.getTvShows(page);
         },
         /*returns an array of top rated movies on tmdb*/
         getTopRatedMovies: async (_: unknown, __: unknown, {dataSources}: {dataSources: any}) => {
@@ -38,7 +38,7 @@ const resolvers = {
         }
     },
 
-    Movies: {
+    Movie: {
         /*returns an object of movie details*/
         details: async ({id}:{id: number}, __: unknown, {dataSources}: {dataSources: any}) => {
             return dataSources.movieAPI.getMovieDetails(id);
@@ -57,7 +57,7 @@ const resolvers = {
         }
     },
 
-    TvShows: {
+    TvShow: {
         /*returns an object of Tv Shows' details*/
         details: async ({id}:{id: number}, __: unknown, {dataSources}: {dataSources: any}) => {
             return dataSources.movieAPI.getTvShowsDetails(id);

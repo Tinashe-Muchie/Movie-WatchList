@@ -6,16 +6,14 @@ class MovieAPI extends RESTDataSource {
         this.baseURL = 'https://api.themoviedb.org/3/';
     }
 
-    async getMovies() {
-        const {results} = await this.get(`discover/movie?api_key=${process.env.API_KEY}&
-        language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`);
-        return results;
+    async getMovies(page_number: number) {
+        return this.get(`discover/movie?api_key=${process.env.API_KEY}&language=en-US&
+        sort_by=popularity.desc&include_adult=false&include_video=false&page=${page_number}`);
     }
 
-    async getTvShows() {
-        const {results} = await this.get(`discover/tv?api_key=${process.env.API_KEY}&
-        language=en-US&sort_by=popularity.desc&page=1&include_null_first_air_dates=false`);
-        return results;
+    async getTvShows(page_number: number) {
+        return this.get(`discover/tv?api_key=${process.env.API_KEY}&language=en-US&
+        sort_by=popularity.desc&page=${page_number}&include_null_first_air_dates=false`);
     }
 
     async getMovieDetails(movie_id: number) {

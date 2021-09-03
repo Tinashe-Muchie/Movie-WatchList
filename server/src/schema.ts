@@ -3,18 +3,30 @@ import { gql } from 'apollo-server-lambda';
 const typeDefs = gql`
 
     type Query {
-        getMovies: [Movies!]!
-        getTvShows: [TvShows!]!
-        getTopRatedMovies: [Movies!]!
-        getUpcomingMovies: [Movies!]!
-        getTopRatedTvShows: [TvShows!]!
+        getMovies(page: Int!): Movies!
+        getTvShows(page: Int!): TvShows!
+        getTopRatedMovies: [Movie!]!
+        getUpcomingMovies: [Movie!]!
+        getTopRatedTvShows: [TvShow!]!
         search(name: String!): [Search!]
     }
     "The Search returns either Movies or TvShows"
-    union Search = Movies | TvShows
+    union Search = Movie | TvShow
+
+    type Movies {
+        page: Int!
+        results: [Movie!]!
+        total_results: Int!
+    }
+
+    type TvShows {
+        page: Int!
+        results: [TvShow!]!
+        total_results: Int!
+    }
 
     "The Movies type represents movies retrieved from discover movies"
-    type Movies {
+    type Movie {
         poster_path: String
         release_date: String
         id: Int!
@@ -27,7 +39,7 @@ const typeDefs = gql`
     }
 
     "The Tv Shows type represents movies retrieved from discover Tv Shows"
-    type TvShows {
+    type TvShow {
         poster_path: String
         id: Int!
         vote_average: Float
