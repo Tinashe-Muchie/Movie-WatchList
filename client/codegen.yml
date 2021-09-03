@@ -3,7 +3,7 @@ schema: "http://localhost:4000"
 documents: "./src/**/*.ts"
 skipGraphQLImport: true
 generates:
-  src/generated/graphql.tsx:
+  src/generated/ttv.tsx:
     plugins:
       - "typescript"
       - "typescript-operations"
