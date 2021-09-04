@@ -16,7 +16,6 @@ export const UPCOMINGMOVIES: DocumentNode = gql`
             id
             poster_path
             release_date
-            revenue
             runtime
             title
             vote_average
