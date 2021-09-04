@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useQuery } from '@apollo/client';
-import { SEARCH } from '../../Queries/index';
 import { QueryQuery } from '../../generated/search';
+import { Context } from '../../Context/GlobalContext';
 
 function Search() {
+
+    const { SEARCH } = useContext(Context);
 
     const { loading, error, data } = useQuery<QueryQuery>(SEARCH);
     return (
