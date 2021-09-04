@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { DocumentNode, gql } from '@apollo/client';
 
-export const TOPRATEDMOVIES = gql`
+export const TOPRATEDMOVIES: DocumentNode = gql`
     query Query {
         getTopRatedMovies {
             poster_path
@@ -46,3 +46,4 @@ export const TOPRATEDMOVIES = gql`
         }
     }
 `;
+

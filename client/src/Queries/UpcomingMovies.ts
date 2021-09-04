@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { DocumentNode, gql } from '@apollo/client';
 
-export const UPCOMINGMOVIES = gql`
+export const UPCOMINGMOVIES: DocumentNode = gql`
     query Query {
         getUpcomingMovies {
             poster_path
@@ -46,3 +46,4 @@ export const UPCOMINGMOVIES = gql`
         }
     }
 `;
+
