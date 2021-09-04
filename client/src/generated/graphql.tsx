@@ -48,6 +48,20 @@ export type Genres = {
   name?: Maybe<Scalars['String']>;
 };
 
+/** The Movies type represents movies retrieved from discover movies */
+export type Movie = {
+  __typename?: 'Movie';
+  poster_path?: Maybe<Scalars['String']>;
+  release_date?: Maybe<Scalars['String']>;
+  id: Scalars['Int'];
+  title?: Maybe<Scalars['String']>;
+  vote_average?: Maybe<Scalars['Float']>;
+  details?: Maybe<MovieDetails>;
+  credits?: Maybe<Array<Cast>>;
+  reviews?: Maybe<Array<Maybe<Reviews>>>;
+  videos?: Maybe<Array<Maybe<Videos>>>;
+};
+
 export type MovieDetails = {
   __typename?: 'MovieDetails';
   genres?: Maybe<Array<Maybe<Genres>>>;
@@ -60,28 +74,31 @@ export type MovieDetails = {
   vote_average?: Maybe<Scalars['Float']>;
 };
 
-/** The Movies type represents movies retrieved from discover movies */
 export type Movies = {
   __typename?: 'Movies';
-  poster_path?: Maybe<Scalars['String']>;
-  release_date?: Maybe<Scalars['String']>;
-  id: Scalars['Int'];
-  title?: Maybe<Scalars['String']>;
-  vote_average?: Maybe<Scalars['Float']>;
-  details?: Maybe<MovieDetails>;
-  credits?: Maybe<Array<Cast>>;
-  reviews?: Maybe<Array<Maybe<Reviews>>>;
-  videos?: Maybe<Array<Maybe<Videos>>>;
+  page: Scalars['Int'];
+  results: Array<Movie>;
+  total_results: Scalars['Int'];
 };
 
 export type Query = {
   __typename?: 'Query';
-  getMovies: Array<Movies>;
-  getTvShows: Array<TvShows>;
-  getTopRatedMovies: Array<Movies>;
-  getUpcomingMovies: Array<Movies>;
-  getTopRatedTvShows: Array<TvShows>;
+  getMovies: Movies;
+  getTvShows: TvShows;
+  getTopRatedMovies: Array<Movie>;
+  getUpcomingMovies: Array<Movie>;
+  getTopRatedTvShows: Array<TvShow>;
   search?: Maybe<Array<Search>>;
+};
+
+
+export type QueryGetMoviesArgs = {
+  page: Scalars['Int'];
+};
+
+
+export type QueryGetTvShowsArgs = {
+  page: Scalars['Int'];
 };
 
 
@@ -110,6 +127,20 @@ export type Seasons = {
   season_number?: Maybe<Scalars['Int']>;
 };
 
+/** The Tv Shows type represents movies retrieved from discover Tv Shows */
+export type TvShow = {
+  __typename?: 'TvShow';
+  poster_path?: Maybe<Scalars['String']>;
+  id: Scalars['Int'];
+  vote_average?: Maybe<Scalars['Float']>;
+  first_air_date?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  details?: Maybe<TvShowDetails>;
+  credits?: Maybe<Array<Cast>>;
+  reviews?: Maybe<Array<Maybe<Reviews>>>;
+  videos?: Maybe<Array<Maybe<Videos>>>;
+};
+
 export type TvShowDetails = {
   __typename?: 'TvShowDetails';
   created_by?: Maybe<Array<Maybe<Creators>>>;
@@ -125,18 +156,11 @@ export type TvShowDetails = {
   vote_average?: Maybe<Scalars['Float']>;
 };
 
-/** The Tv Shows type represents movies retrieved from discover Tv Shows */
 export type TvShows = {
   __typename?: 'TvShows';
-  poster_path?: Maybe<Scalars['String']>;
-  id: Scalars['Int'];
-  vote_average?: Maybe<Scalars['Float']>;
-  first_air_date?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  details?: Maybe<TvShowDetails>;
-  credits?: Maybe<Array<Cast>>;
-  reviews?: Maybe<Array<Maybe<Reviews>>>;
-  videos?: Maybe<Array<Maybe<Videos>>>;
+  page: Scalars['Int'];
+  results: Array<TvShow>;
+  total_results: Scalars['Int'];
 };
 
 /** Videos is used to retrieve trailers for movies/ Tv Shows */
@@ -149,54 +173,60 @@ export type Videos = {
   id?: Maybe<Scalars['String']>;
 };
 
-export type QueryQueryVariables = Exact<{ [key: string]: never; }>;
+export type QueryQueryVariables = Exact<{
+  getMoviesPage: Scalars['Int'];
+}>;
 
 
-export type QueryQuery = { __typename?: 'Query', getMovies: Array<{ __typename?: 'Movies', poster_path?: Maybe<string>, release_date?: Maybe<string>, id: number, title?: Maybe<string>, vote_average?: Maybe<number>, details?: Maybe<{ __typename?: 'MovieDetails', id: number, poster_path?: Maybe<string>, release_date?: Maybe<string>, revenue?: Maybe<number>, runtime?: Maybe<number>, title?: Maybe<string>, vote_average?: Maybe<number>, genres?: Maybe<Array<Maybe<{ __typename?: 'Genres', name?: Maybe<string>, id: number }>>> }>, credits?: Maybe<Array<{ __typename?: 'Cast', id: number, name?: Maybe<string>, profile_path?: Maybe<string>, character?: Maybe<string> }>>, reviews?: Maybe<Array<Maybe<{ __typename?: 'Reviews', content?: Maybe<string>, id?: Maybe<string>, author_details?: Maybe<{ __typename?: 'Author', name?: Maybe<string>, avatar_path?: Maybe<string>, rating?: Maybe<string> }> }>>>, videos?: Maybe<Array<Maybe<{ __typename?: 'Videos', name?: Maybe<string>, key?: Maybe<string>, site?: Maybe<string>, type?: Maybe<string>, id?: Maybe<string> }>>> }> };
+export type QueryQuery = { __typename?: 'Query', getMovies: { __typename?: 'Movies', page: number, total_results: number, results: Array<{ __typename?: 'Movie', poster_path?: Maybe<string>, release_date?: Maybe<string>, id: number, title?: Maybe<string>, vote_average?: Maybe<number>, details?: Maybe<{ __typename?: 'MovieDetails', poster_path?: Maybe<string>, release_date?: Maybe<string>, revenue?: Maybe<number>, runtime?: Maybe<number>, title?: Maybe<string>, vote_average?: Maybe<number>, id: number, genres?: Maybe<Array<Maybe<{ __typename?: 'Genres', id: number, name?: Maybe<string> }>>> }>, credits?: Maybe<Array<{ __typename?: 'Cast', id: number, name?: Maybe<string>, profile_path?: Maybe<string>, character?: Maybe<string> }>>, reviews?: Maybe<Array<Maybe<{ __typename?: 'Reviews', content?: Maybe<string>, id?: Maybe<string>, author_details?: Maybe<{ __typename?: 'Author', name?: Maybe<string>, avatar_path?: Maybe<string>, rating?: Maybe<string> }> }>>>, videos?: Maybe<Array<Maybe<{ __typename?: 'Videos', name?: Maybe<string>, key?: Maybe<string>, site?: Maybe<string>, type?: Maybe<string>, id?: Maybe<string> }>>> }> } };
 
 
 export const QueryDocument = gql`
-    query Query {
-  getMovies {
-    poster_path
-    release_date
-    id
-    title
-    vote_average
-    details {
-      genres {
-        name
-        id
-      }
-      id
+    query Query($getMoviesPage: Int!) {
+  getMovies(page: $getMoviesPage) {
+    page
+    total_results
+    results {
       poster_path
       release_date
-      revenue
-      runtime
+      id
       title
       vote_average
-    }
-    credits {
-      id
-      name
-      profile_path
-      character
-    }
-    reviews {
-      author_details {
-        name
-        avatar_path
-        rating
+      details {
+        genres {
+          id
+          name
+        }
+        poster_path
+        release_date
+        revenue
+        runtime
+        title
+        vote_average
+        id
       }
-      content
-      id
-    }
-    videos {
-      name
-      key
-      site
-      type
-      id
+      credits {
+        id
+        name
+        profile_path
+        character
+      }
+      reviews {
+        author_details {
+          name
+          avatar_path
+          rating
+        }
+        content
+        id
+      }
+      videos {
+        name
+        key
+        site
+        type
+        id
+      }
     }
   }
 }
@@ -214,10 +244,11 @@ export const QueryDocument = gql`
  * @example
  * const { data, loading, error } = useQueryQuery({
  *   variables: {
+ *      getMoviesPage: // value for 'getMoviesPage'
  *   },
  * });
  */
-export function useQueryQuery(baseOptions?: Apollo.QueryHookOptions<QueryQuery, QueryQueryVariables>) {
+export function useQueryQuery(baseOptions: Apollo.QueryHookOptions<QueryQuery, QueryQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<QueryQuery, QueryQueryVariables>(QueryDocument, options);
       }

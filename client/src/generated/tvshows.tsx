@@ -48,6 +48,20 @@ export type Genres = {
   name?: Maybe<Scalars['String']>;
 };
 
+/** The Movies type represents movies retrieved from discover movies */
+export type Movie = {
+  __typename?: 'Movie';
+  poster_path?: Maybe<Scalars['String']>;
+  release_date?: Maybe<Scalars['String']>;
+  id: Scalars['Int'];
+  title?: Maybe<Scalars['String']>;
+  vote_average?: Maybe<Scalars['Float']>;
+  details?: Maybe<MovieDetails>;
+  credits?: Maybe<Array<Cast>>;
+  reviews?: Maybe<Array<Maybe<Reviews>>>;
+  videos?: Maybe<Array<Maybe<Videos>>>;
+};
+
 export type MovieDetails = {
   __typename?: 'MovieDetails';
   genres?: Maybe<Array<Maybe<Genres>>>;
@@ -60,28 +74,31 @@ export type MovieDetails = {
   vote_average?: Maybe<Scalars['Float']>;
 };
 
-/** The Movies type represents movies retrieved from discover movies */
 export type Movies = {
   __typename?: 'Movies';
-  poster_path?: Maybe<Scalars['String']>;
-  release_date?: Maybe<Scalars['String']>;
-  id: Scalars['Int'];
-  title?: Maybe<Scalars['String']>;
-  vote_average?: Maybe<Scalars['Float']>;
-  details?: Maybe<MovieDetails>;
-  credits?: Maybe<Array<Cast>>;
-  reviews?: Maybe<Array<Maybe<Reviews>>>;
-  videos?: Maybe<Array<Maybe<Videos>>>;
+  page: Scalars['Int'];
+  results: Array<Movie>;
+  total_results: Scalars['Int'];
 };
 
 export type Query = {
   __typename?: 'Query';
-  getMovies: Array<Movies>;
-  getTvShows: Array<TvShows>;
-  getTopRatedMovies: Array<Movies>;
-  getUpcomingMovies: Array<Movies>;
-  getTopRatedTvShows: Array<TvShows>;
+  getMovies: Movies;
+  getTvShows: TvShows;
+  getTopRatedMovies: Array<Movie>;
+  getUpcomingMovies: Array<Movie>;
+  getTopRatedTvShows: Array<TvShow>;
   search?: Maybe<Array<Search>>;
+};
+
+
+export type QueryGetMoviesArgs = {
+  page: Scalars['Int'];
+};
+
+
+export type QueryGetTvShowsArgs = {
+  page: Scalars['Int'];
 };
 
 
@@ -110,6 +127,20 @@ export type Seasons = {
   season_number?: Maybe<Scalars['Int']>;
 };
 
+/** The Tv Shows type represents movies retrieved from discover Tv Shows */
+export type TvShow = {
+  __typename?: 'TvShow';
+  poster_path?: Maybe<Scalars['String']>;
+  id: Scalars['Int'];
+  vote_average?: Maybe<Scalars['Float']>;
+  first_air_date?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  details?: Maybe<TvShowDetails>;
+  credits?: Maybe<Array<Cast>>;
+  reviews?: Maybe<Array<Maybe<Reviews>>>;
+  videos?: Maybe<Array<Maybe<Videos>>>;
+};
+
 export type TvShowDetails = {
   __typename?: 'TvShowDetails';
   created_by?: Maybe<Array<Maybe<Creators>>>;
@@ -125,18 +156,11 @@ export type TvShowDetails = {
   vote_average?: Maybe<Scalars['Float']>;
 };
 
-/** The Tv Shows type represents movies retrieved from discover Tv Shows */
 export type TvShows = {
   __typename?: 'TvShows';
-  poster_path?: Maybe<Scalars['String']>;
-  id: Scalars['Int'];
-  vote_average?: Maybe<Scalars['Float']>;
-  first_air_date?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  details?: Maybe<TvShowDetails>;
-  credits?: Maybe<Array<Cast>>;
-  reviews?: Maybe<Array<Maybe<Reviews>>>;
-  videos?: Maybe<Array<Maybe<Videos>>>;
+  page: Scalars['Int'];
+  results: Array<TvShow>;
+  total_results: Scalars['Int'];
 };
 
 /** Videos is used to retrieve trailers for movies/ Tv Shows */
@@ -149,68 +173,74 @@ export type Videos = {
   id?: Maybe<Scalars['String']>;
 };
 
-export type QueryQueryVariables = Exact<{ [key: string]: never; }>;
+export type QueryQueryVariables = Exact<{
+  getTvShowsPage: Scalars['Int'];
+}>;
 
 
-export type QueryQuery = { __typename?: 'Query', getTvShows: Array<{ __typename?: 'TvShows', poster_path?: Maybe<string>, id: number, vote_average?: Maybe<number>, name?: Maybe<string>, first_air_date?: Maybe<string>, credits?: Maybe<Array<{ __typename?: 'Cast', id: number, name?: Maybe<string>, profile_path?: Maybe<string>, character?: Maybe<string> }>>, reviews?: Maybe<Array<Maybe<{ __typename?: 'Reviews', content?: Maybe<string>, id?: Maybe<string>, author_details?: Maybe<{ __typename?: 'Author', name?: Maybe<string>, avatar_path?: Maybe<string>, rating?: Maybe<string> }> }>>>, videos?: Maybe<Array<Maybe<{ __typename?: 'Videos', name?: Maybe<string>, key?: Maybe<string>, site?: Maybe<string>, type?: Maybe<string>, id?: Maybe<string> }>>>, details?: Maybe<{ __typename?: 'TvShowDetails', first_air_date?: Maybe<string>, id: number, last_air_date?: Maybe<string>, name?: Maybe<string>, number_of_episodes?: Maybe<number>, number_of_seasons?: Maybe<number>, poster_path?: Maybe<string>, vote_average?: Maybe<number>, created_by?: Maybe<Array<Maybe<{ __typename?: 'Creators', id: number, name?: Maybe<string>, profile_path?: Maybe<string> }>>>, genres?: Maybe<Array<Maybe<{ __typename?: 'Genres', id: number, name?: Maybe<string> }>>>, seasons?: Maybe<Array<Maybe<{ __typename?: 'Seasons', air_date?: Maybe<string>, episode_count?: Maybe<number>, id: number, name?: Maybe<string>, poster_path?: Maybe<string>, season_number?: Maybe<number> }>>> }> }> };
+export type QueryQuery = { __typename?: 'Query', getTvShows: { __typename?: 'TvShows', page: number, total_results: number, results: Array<{ __typename?: 'TvShow', poster_path?: Maybe<string>, id: number, vote_average?: Maybe<number>, first_air_date?: Maybe<string>, name?: Maybe<string>, details?: Maybe<{ __typename?: 'TvShowDetails', first_air_date?: Maybe<string>, id: number, last_air_date?: Maybe<string>, name?: Maybe<string>, number_of_episodes?: Maybe<number>, number_of_seasons?: Maybe<number>, poster_path?: Maybe<string>, vote_average?: Maybe<number>, created_by?: Maybe<Array<Maybe<{ __typename?: 'Creators', name?: Maybe<string>, id: number, profile_path?: Maybe<string> }>>>, genres?: Maybe<Array<Maybe<{ __typename?: 'Genres', id: number, name?: Maybe<string> }>>>, seasons?: Maybe<Array<Maybe<{ __typename?: 'Seasons', air_date?: Maybe<string>, episode_count?: Maybe<number>, id: number, name?: Maybe<string>, poster_path?: Maybe<string>, season_number?: Maybe<number> }>>> }>, credits?: Maybe<Array<{ __typename?: 'Cast', id: number, name?: Maybe<string>, profile_path?: Maybe<string>, character?: Maybe<string> }>>, reviews?: Maybe<Array<Maybe<{ __typename?: 'Reviews', content?: Maybe<string>, id?: Maybe<string>, author_details?: Maybe<{ __typename?: 'Author', name?: Maybe<string>, avatar_path?: Maybe<string>, rating?: Maybe<string> }> }>>>, videos?: Maybe<Array<Maybe<{ __typename?: 'Videos', name?: Maybe<string>, key?: Maybe<string>, site?: Maybe<string>, type?: Maybe<string>, id?: Maybe<string> }>>> }> } };
 
 
 export const QueryDocument = gql`
-    query Query {
-  getTvShows {
-    poster_path
-    id
-    vote_average
-    name
-    credits {
+    query Query($getTvShowsPage: Int!) {
+  getTvShows(page: $getTvShowsPage) {
+    page
+    total_results
+    results {
+      poster_path
       id
+      vote_average
+      first_air_date
       name
-      profile_path
-      character
-    }
-    reviews {
-      author_details {
+      details {
+        created_by {
+          name
+          id
+          profile_path
+        }
+        first_air_date
+        genres {
+          id
+          name
+        }
+        id
+        last_air_date
         name
-        avatar_path
-        rating
+        number_of_episodes
+        number_of_seasons
+        poster_path
+        seasons {
+          air_date
+          episode_count
+          id
+          name
+          poster_path
+          season_number
+        }
+        vote_average
       }
-      content
-      id
-    }
-    videos {
-      name
-      key
-      site
-      type
-      id
-    }
-    first_air_date
-    details {
-      created_by {
+      credits {
         id
         name
         profile_path
+        character
       }
-      first_air_date
-      genres {
+      reviews {
+        author_details {
+          name
+          avatar_path
+          rating
+        }
+        content
         id
-        name
       }
-      id
-      last_air_date
-      name
-      number_of_episodes
-      number_of_seasons
-      poster_path
-      seasons {
-        air_date
-        episode_count
+      videos {
+        name
+        key
+        site
+        type
         id
-        name
-        poster_path
-        season_number
       }
-      vote_average
     }
   }
 }
@@ -228,10 +258,11 @@ export const QueryDocument = gql`
  * @example
  * const { data, loading, error } = useQueryQuery({
  *   variables: {
+ *      getTvShowsPage: // value for 'getTvShowsPage'
  *   },
  * });
  */
-export function useQueryQuery(baseOptions?: Apollo.QueryHookOptions<QueryQuery, QueryQueryVariables>) {
+export function useQueryQuery(baseOptions: Apollo.QueryHookOptions<QueryQuery, QueryQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<QueryQuery, QueryQueryVariables>(QueryDocument, options);
       }
