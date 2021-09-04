@@ -1,26 +1,32 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useQuery } from '@apollo/client';
-import { MOVIES } from '../../Queries/index';
 import { QueryQuery } from '../../generated/graphql';
 import TopRatedMovies from '../TopRated/TopRatedMovies';
 import { Pagination } from '../../Components/index';
 import { 
     Container, Wrapper } from './styles';
+import { Context } from '../../Context/GlobalContext'; 
+import { MoviesLayout } from '../../Components/index';
 
-function Movies() {
+export const Movies: React.FunctionComponent = () => {
+
+    const { MOVIES } = useContext(Context);
 
     const { loading, error, data } = useQuery<QueryQuery>(MOVIES);
+    console.log(data)
     return (
         <>
         <TopRatedMovies />
         <Container>
             <Wrapper>
-            
+            <MoviesLayout 
+                loading={loading}
+                error={error}
+                data={data}
+            />
             <Pagination />
             </Wrapper>
         </Container>
         </>
     );
 }
-
-export default Movies;

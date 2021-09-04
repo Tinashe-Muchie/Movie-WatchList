@@ -5,7 +5,6 @@ export const Container: StyledComponent<"div", {}> = styled.div`
     display: block;
     width: 100%;
     height: auto;
-    background-image: linear-gradient(to bottom right, #7395AE, #5CDB95);
 `;
 
 export const Wrapper: StyledComponent<"section", never> = styled.section`
