@@ -185,3 +185,12 @@ export const Category: StyledComponent<"div", {}> = styled.div`
         padding: .5rem 5rem;
     }
 `;
+
+export const LinkStyled = styled(NavLink)`
+    text-decoration: none;
+    padding: 0;
+
+    &:hover {
+        text-decoration: none;
+    }
+`;
