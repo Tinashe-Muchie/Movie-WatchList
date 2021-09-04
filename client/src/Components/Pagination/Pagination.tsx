@@ -7,7 +7,7 @@ import { Context } from '../../Context/GlobalContext';
 
 export const Pagination: React.FunctionComponent = () => {
 
-    const { currentPage, setCurrentPage } = useContext(Context);
+    const { currentMoviePage, setCurrentMoviePage } = useContext(Context);
     const [ active, setActive ] = useState(false);
 
     //this it the number of items that a user will see on a single page
@@ -25,23 +25,23 @@ export const Pagination: React.FunctionComponent = () => {
     }
 
     //right button disabled boolean to toggle between disabling and enabling the left button
-    const rdisabled:boolean = (currentPage === pages[pages.length - 1]) ? true : false;
+    const rdisabled:boolean = (currentMoviePage === pages[pages.length - 1]) ? true : false;
     //left button disabled boolean to toggle between disabling and enabling the left button
-    const ldisabled:boolean = (currentPage === pages[0]) ? true : false;
+    const ldisabled:boolean = (currentMoviePage === pages[0]) ? true : false;
 
     const handleNextButton = () => {
-        setCurrentPage(currentPage + 1);
+        setCurrentMoviePage(currentMoviePage + 1);
     
-        if (currentPage + 1 > maxPageNumberLimit) {
+        if (currentMoviePage + 1 > maxPageNumberLimit) {
           setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
           setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
         }
     };
     
     const handlePrevButton = () => {
-        setCurrentPage(currentPage - 1);
+        setCurrentMoviePage(currentMoviePage - 1);
     
-        if ((currentPage - 1) % pageNumberLimit === 0) {
+        if ((currentMoviePage - 1) % pageNumberLimit === 0) {
           setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
           setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
         }
@@ -52,7 +52,7 @@ export const Pagination: React.FunctionComponent = () => {
           return (
             <StyledList 
                 key={number}
-                onClick={()=> {setCurrentPage(number)}}
+                onClick={()=> {setCurrentMoviePage(number)}}
                 className={active ? 'active': ''}
             >
                 {number}
