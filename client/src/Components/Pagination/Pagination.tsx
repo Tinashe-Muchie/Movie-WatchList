@@ -1,38 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { 
     Container, StyledUL, StyledLI,
     Button, StyledList } from './style';
 import { GoArrowSmallRight, GoArrowSmallLeft } from 'react-icons/go'; 
+import { Context } from '../../Context/GlobalContext';
 
 export const Pagination: React.FunctionComponent = () => {
-    const data = ['hello', 'hi', 'okay']
 
-    //set the current Page that is displayed
-    const [currentPage, setCurrentPage] = useState<number>(1);
+    const { currentPage, setCurrentPage } = useContext(Context);
+    const [ active, setActive ] = useState(false);
+
     //this it the number of items that a user will see on a single page
     const itemsPerPage: number = 20;
     
     const pageNumberLimit: number = 10;
-    const [maxPageNumberLimit, setMaxPageNumberLimit] = useState<number>(5);
+    const [maxPageNumberLimit, setMaxPageNumberLimit] = useState<number>(10);
     const [minPageNumberLimit, setMinPageNumberLimit] = useState<number>(0);
 
     /*Calculate the total number of pages that are available by dividing
     the data you get from the server with the number of items on a page*/
     const pages: number[] = [];
-    for (let i = 1; i <= Math.ceil(data.length / itemsPerPage); i++) {
+    for (let i = 1; i <= Math.ceil(10000 / itemsPerPage); i++) {
         pages.push(i);
     }
 
+    //right button disabled boolean to toggle between disabling and enabling the left button
     const rdisabled:boolean = (currentPage === pages[pages.length - 1]) ? true : false;
+    //left button disabled boolean to toggle between disabling and enabling the left button
     const ldisabled:boolean = (currentPage === pages[0]) ? true : false;
-
-    /*Calculate the index of the last item on a page by multiplying the number
-    of items on a page by the page number e.g page 2* 20= 40*/ 
-    //const indexOfLastItem: number = currentPage * itemsPerPage;
-    /*Calculate the index of the first item on a page by subtracting the number
-    of items per page from the index of the last item*/
-    //const indexOfFirstItem: number = indexOfLastItem - itemsPerPage;
-    //const currentItems: string[] = data.slice(indexOfFirstItem, indexOfLastItem);
 
     const handleNextButton = () => {
         setCurrentPage(currentPage + 1);
@@ -52,12 +47,13 @@ export const Pagination: React.FunctionComponent = () => {
         }
     };
 
-    const renderPageNumbers = pages.map((number) => {
+    const renderPageNumbers = pages.map((number, index) => {
         if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
           return (
             <StyledList 
                 key={number}
-                onClick={()=> setCurrentPage(number)}
+                onClick={()=> {setCurrentPage(number)}}
+                className={active ? 'active': ''}
             >
                 {number}
             </StyledList>
@@ -65,16 +61,24 @@ export const Pagination: React.FunctionComponent = () => {
         } else {
           return null;
         }
-      });
+    });
 
     let pageIncrementButton = null;
     if (pages.length > maxPageNumberLimit) {
-        pageIncrementButton = <li onClick={handleNextButton}> &hellip; </li>;
+        pageIncrementButton = <StyledList 
+                                onClick={handleNextButton}
+                            > 
+                            &hellip; 
+                            </StyledList>;
     }
 
     let pageDecrementButton = null;
     if (minPageNumberLimit >= 1) {
-        pageDecrementButton = <li onClick={handlePrevButton}> &hellip; </li>;
+        pageDecrementButton = <StyledList  
+                                onClick={handlePrevButton}
+                            > 
+                            &hellip; 
+                            </StyledList>;
     }
 
     return (

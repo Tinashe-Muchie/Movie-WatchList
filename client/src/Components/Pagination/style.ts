@@ -19,20 +19,25 @@ export const Container: StyledComponent<"section", never> = styled.section`
 export const StyledUL: StyledComponent<"ul", {}> = styled.ul`
     text-decoration: none;
     padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 `;
 
 export const StyledLI: StyledComponent<"li", {}> = styled.li`
     list-style-type: none;
+    padding: .5rem;
 `;
 
 export const Button: StyledComponent<"button", {}> = styled.button`
-    font-size: 2.8rem;
+    font-size: 2rem;
     color: #0C0032;
     z-index: 10;
-    height: 3rem;
-    width: 3rem;
+    height: 2.4rem;
+    width: 2.4rem;
     border: hidden;
-    border-radius: 1rem;
+    border-radius: 50%;
     display: inline-block;
     background-image: linear-gradient(to bottom right, #7395AE, #5CDB95);
     padding: 0;
@@ -49,9 +54,9 @@ export const Button: StyledComponent<"button", {}> = styled.button`
     }  
     
     @media ${device.laptop} {
-        height: 3rem;
-        width: 3rem;
-        font-size: 2.8rem;
+        height: 2.6rem;
+        width: 2.6rem;
+        font-size: 2.4rem;
     }
 `;
 
@@ -62,5 +67,20 @@ Button.propTypes = {
 
 export const StyledList: StyledComponent<"li", {}> = styled.li`
     list-style-type: none;
-    background-color: #0C0032;
+    padding: .5rem;
+    height: 2rem;
+    width: 2rem;
+    border: hidden;
+    border-radius: 50%;
+    background-image: linear-gradient(to bottom right, #7395AE, #5CDB95);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #0C0032;
+    margin: .1rem;
+
+    &.active {
+        color: #C5C6C7;
+    }
 `;
