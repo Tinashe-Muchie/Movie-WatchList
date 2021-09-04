@@ -4,7 +4,7 @@ import { QueryQuery } from '../../generated/graphql';
 import TopRatedMovies from '../TopRated/TopRatedMovies';
 import { Pagination } from '../../Components/index';
 import { 
-    Container, Wrapper } from './styles';
+    Container, Wrapper, Title } from './styles';
 import { Context } from '../../Context/GlobalContext'; 
 import { MoviesLayout } from '../../Components/index';
 
@@ -19,6 +19,9 @@ export const Movies: React.FunctionComponent = () => {
         <TopRatedMovies />
         <Container>
             <Wrapper>
+            <Title>
+                Discover More Movies
+            </Title>
             <MoviesLayout 
                 loading={loading}
                 error={error}

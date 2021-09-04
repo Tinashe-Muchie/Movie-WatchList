@@ -18,3 +18,15 @@ export const Wrapper: StyledComponent<"section", never> = styled.section`
     padding: 1rem;
 }  
 `;
+
+export const Title: StyledComponent<"h2", {}> = styled.h2`
+    @import url('https://fonts.googleapis.com/css2?family=STIX+Two+Text&display=swap');
+    font-family: 'STIX+Two+Text', Garamond, serif;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: #C5C6C7 solid .1rem;
+    border-bottom: #C5C6C7 solid .1rem;
+
+`;
