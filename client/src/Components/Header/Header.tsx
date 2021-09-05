@@ -33,7 +33,7 @@ export const Header: FunctionComponent = () => {
             <InputWrapper>
                 <Form>
                     <Input 
-                        placeholder='Search for movies and tv shows....' 
+                        placeholder='Search for movies and tv shows by name....' 
                         value={query}
                         onChange={onChange}
                     />
