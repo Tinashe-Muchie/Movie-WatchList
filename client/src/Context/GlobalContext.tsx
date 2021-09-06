@@ -65,6 +65,10 @@ export const GlobalContext: React.FunctionComponent = ({children}) => {
     const [currentShowPage, setCurrentShowPage] = useState<number>(1);
     const [search, setSearch] = useState<string>('');
 
+    //title represents the information to be displayed in the popup box
+    const [title, setTitle] = useState('');
+    const [showPopup, setShowPopup] = useState(false);
+
     const [ myState, dispatch] = useReducer(reducer, initialState);
 
     const addToWatchlist = (item: T) => {
@@ -119,6 +123,8 @@ export const GlobalContext: React.FunctionComponent = ({children}) => {
                     title
                     vote_average
                     id
+                    overview
+                    tagline
                 }
                 credits {
                     id
@@ -167,6 +173,8 @@ export const GlobalContext: React.FunctionComponent = ({children}) => {
                     runtime
                     title
                     vote_average
+                    overview
+                    tagline
                 }
                 credits{
                     id
@@ -223,6 +231,8 @@ export const GlobalContext: React.FunctionComponent = ({children}) => {
                     season_number
                     }
                     vote_average
+                    overview
+                    tagline
                 }
                 credits{
                     id
@@ -288,6 +298,8 @@ export const GlobalContext: React.FunctionComponent = ({children}) => {
                 season_number
                 }
                 vote_average
+                overview
+                tagline
             }
             credits {
                 id
@@ -327,6 +339,10 @@ export const GlobalContext: React.FunctionComponent = ({children}) => {
         addToWatched,
         removeFromWatchlist,
         removeFromWatched,
+        title,
+        setTitle,
+        showPopup,
+        setShowPopup,
         MOVIES,
         SEARCH,
         TvSHOWS

@@ -34,6 +34,8 @@ export const TOPRATEDTvSHOWS: DocumentNode = gql`
                 season_number
             }
             vote_average
+            overview
+            tagline
             }
             credits {
             id

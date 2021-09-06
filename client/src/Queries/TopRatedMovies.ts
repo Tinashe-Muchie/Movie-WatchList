@@ -19,6 +19,8 @@ export const TOPRATEDMOVIES: DocumentNode = gql`
             runtime
             title
             vote_average
+            overview
+            tagline
             }
             credits {
             id
