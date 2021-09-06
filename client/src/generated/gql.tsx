@@ -58,6 +58,8 @@ export type MovieDetails = {
   runtime?: Maybe<Scalars['Int']>;
   title?: Maybe<Scalars['String']>;
   vote_average?: Maybe<Scalars['Float']>;
+  overview?: Maybe<Scalars['String']>;
+  tagline?: Maybe<Scalars['String']>;
 };
 
 /** The Movies type represents movies retrieved from discover movies */
@@ -123,6 +125,8 @@ export type TvShowDetails = {
   poster_path?: Maybe<Scalars['String']>;
   seasons?: Maybe<Array<Maybe<Seasons>>>;
   vote_average?: Maybe<Scalars['Float']>;
+  overview?: Maybe<Scalars['String']>;
+  tagline?: Maybe<Scalars['String']>;
 };
 
 /** The Tv Shows type represents movies retrieved from discover Tv Shows */
@@ -152,7 +156,7 @@ export type Videos = {
 export type QueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type QueryQuery = { __typename?: 'Query', getTopRatedMovies: Array<{ __typename?: 'Movies', poster_path?: Maybe<string>, release_date?: Maybe<string>, id: number, title?: Maybe<string>, vote_average?: Maybe<number>, details?: Maybe<{ __typename?: 'MovieDetails', id: number, poster_path?: Maybe<string>, release_date?: Maybe<string>, revenue?: Maybe<number>, runtime?: Maybe<number>, title?: Maybe<string>, vote_average?: Maybe<number>, genres?: Maybe<Array<Maybe<{ __typename?: 'Genres', id: number, name?: Maybe<string> }>>> }>, credits?: Maybe<Array<{ __typename?: 'Cast', id: number, name?: Maybe<string>, profile_path?: Maybe<string>, character?: Maybe<string> }>>, reviews?: Maybe<Array<Maybe<{ __typename?: 'Reviews', content?: Maybe<string>, id?: Maybe<string>, author_details?: Maybe<{ __typename?: 'Author', name?: Maybe<string>, avatar_path?: Maybe<string>, rating?: Maybe<string> }> }>>>, videos?: Maybe<Array<Maybe<{ __typename?: 'Videos', name?: Maybe<string>, key?: Maybe<string>, site?: Maybe<string>, type?: Maybe<string>, id?: Maybe<string> }>>> }> };
+export type QueryQuery = { __typename?: 'Query', getTopRatedMovies: Array<{ __typename?: 'Movies', poster_path?: Maybe<string>, release_date?: Maybe<string>, id: number, title?: Maybe<string>, vote_average?: Maybe<number>, details?: Maybe<{ __typename?: 'MovieDetails', id: number, poster_path?: Maybe<string>, release_date?: Maybe<string>, revenue?: Maybe<number>, runtime?: Maybe<number>, title?: Maybe<string>, vote_average?: Maybe<number>, overview?: Maybe<string>, tagline?: Maybe<string>,genres?: Maybe<Array<Maybe<{ __typename?: 'Genres', id: number, name?: Maybe<string> }>>> }>, credits?: Maybe<Array<{ __typename?: 'Cast', id: number, name?: Maybe<string>, profile_path?: Maybe<string>, character?: Maybe<string> }>>, reviews?: Maybe<Array<Maybe<{ __typename?: 'Reviews', content?: Maybe<string>, id?: Maybe<string>, author_details?: Maybe<{ __typename?: 'Author', name?: Maybe<string>, avatar_path?: Maybe<string>, rating?: Maybe<string> }> }>>>, videos?: Maybe<Array<Maybe<{ __typename?: 'Videos', name?: Maybe<string>, key?: Maybe<string>, site?: Maybe<string>, type?: Maybe<string>, id?: Maybe<string> }>>> }> };
 
 
 export const QueryDocument = gql`
@@ -175,6 +179,8 @@ export const QueryDocument = gql`
       runtime
       title
       vote_average
+      overview
+      tagline
     }
     credits {
       id

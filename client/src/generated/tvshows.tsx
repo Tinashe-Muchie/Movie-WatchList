@@ -72,6 +72,8 @@ export type MovieDetails = {
   runtime?: Maybe<Scalars['Int']>;
   title?: Maybe<Scalars['String']>;
   vote_average?: Maybe<Scalars['Float']>;
+  overview?: Maybe<Scalars['String']>;
+  tagline?: Maybe<Scalars['String']>;
 };
 
 export type Movies = {
@@ -154,6 +156,8 @@ export type TvShowDetails = {
   poster_path?: Maybe<Scalars['String']>;
   seasons?: Maybe<Array<Maybe<Seasons>>>;
   vote_average?: Maybe<Scalars['Float']>;
+  overview?: Maybe<Scalars['String']>;
+  tagline?: Maybe<Scalars['String']>;
 };
 
 export type TvShows = {
@@ -178,7 +182,7 @@ export type QueryQueryVariables = Exact<{
 }>;
 
 
-export type QueryQuery = { __typename?: 'Query', getTvShows: { __typename?: 'TvShows', page: number, total_results: number, results: Array<{ __typename?: 'TvShow', poster_path?: Maybe<string>, id: number, vote_average?: Maybe<number>, first_air_date?: Maybe<string>, name?: Maybe<string>, details?: Maybe<{ __typename?: 'TvShowDetails', first_air_date?: Maybe<string>, id: number, last_air_date?: Maybe<string>, name?: Maybe<string>, number_of_episodes?: Maybe<number>, number_of_seasons?: Maybe<number>, poster_path?: Maybe<string>, vote_average?: Maybe<number>, created_by?: Maybe<Array<Maybe<{ __typename?: 'Creators', name?: Maybe<string>, id: number, profile_path?: Maybe<string> }>>>, genres?: Maybe<Array<Maybe<{ __typename?: 'Genres', id: number, name?: Maybe<string> }>>>, seasons?: Maybe<Array<Maybe<{ __typename?: 'Seasons', air_date?: Maybe<string>, episode_count?: Maybe<number>, id: number, name?: Maybe<string>, poster_path?: Maybe<string>, season_number?: Maybe<number> }>>> }>, credits?: Maybe<Array<{ __typename?: 'Cast', id: number, name?: Maybe<string>, profile_path?: Maybe<string>, character?: Maybe<string> }>>, reviews?: Maybe<Array<Maybe<{ __typename?: 'Reviews', content?: Maybe<string>, id?: Maybe<string>, author_details?: Maybe<{ __typename?: 'Author', name?: Maybe<string>, avatar_path?: Maybe<string>, rating?: Maybe<string> }> }>>>, videos?: Maybe<Array<Maybe<{ __typename?: 'Videos', name?: Maybe<string>, key?: Maybe<string>, site?: Maybe<string>, type?: Maybe<string>, id?: Maybe<string> }>>> }> } };
+export type QueryQuery = { __typename?: 'Query', getTvShows: { __typename?: 'TvShows', page: number, total_results: number, results: Array<{ __typename?: 'TvShow', poster_path?: Maybe<string>, id: number, vote_average?: Maybe<number>, first_air_date?: Maybe<string>, name?: Maybe<string>, details?: Maybe<{ __typename?: 'TvShowDetails', first_air_date?: Maybe<string>, id: number, last_air_date?: Maybe<string>, name?: Maybe<string>, number_of_episodes?: Maybe<number>, number_of_seasons?: Maybe<number>, poster_path?: Maybe<string>, vote_average?: Maybe<number>, overview?: Maybe<string>, tagline?: Maybe<string>, created_by?: Maybe<Array<Maybe<{ __typename?: 'Creators', name?: Maybe<string>, id: number, profile_path?: Maybe<string> }>>>, genres?: Maybe<Array<Maybe<{ __typename?: 'Genres', id: number, name?: Maybe<string> }>>>, seasons?: Maybe<Array<Maybe<{ __typename?: 'Seasons', air_date?: Maybe<string>, episode_count?: Maybe<number>, id: number, name?: Maybe<string>, poster_path?: Maybe<string>, season_number?: Maybe<number> }>>> }>, credits?: Maybe<Array<{ __typename?: 'Cast', id: number, name?: Maybe<string>, profile_path?: Maybe<string>, character?: Maybe<string> }>>, reviews?: Maybe<Array<Maybe<{ __typename?: 'Reviews', content?: Maybe<string>, id?: Maybe<string>, author_details?: Maybe<{ __typename?: 'Author', name?: Maybe<string>, avatar_path?: Maybe<string>, rating?: Maybe<string> }> }>>>, videos?: Maybe<Array<Maybe<{ __typename?: 'Videos', name?: Maybe<string>, key?: Maybe<string>, site?: Maybe<string>, type?: Maybe<string>, id?: Maybe<string> }>>> }> } };
 
 
 export const QueryDocument = gql`
@@ -218,6 +222,8 @@ export const QueryDocument = gql`
           season_number
         }
         vote_average
+        overview
+        tagline
       }
       credits {
         id
